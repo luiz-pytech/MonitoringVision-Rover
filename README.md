@@ -11,6 +11,20 @@ Este projeto implementa um sistema de detecção de quedas humanas em tempo real
 
 O desenvolvimento e treinamento foram realizados no Google Colab, aproveitando a aceleração por GPU disponibilizada pelo Google. O modelo final foi otimizado para o formato **TFLite (INT8)**, permitindo uma inferência eficiente e de alta performance em dispositivos embarcados de baixa potência, como o **Raspberry Pi**.
 
+## 📊 Datasets Utilizados
+
+Este modelo foi treinado e validado utilizando os seguintes datasets públicos. Agradecemos imensamente aos autores por disponibilizarem seus dados para a comunidade de pesquisa.
+
+1.  **UR Fall Detection Dataset (URFD)**
+    -   **Utilizado para:** Treinamento principal do modelo.
+    -   **Link:** [https://universe.roboflow.com/ufddfdd/ur-fall-detection-dataset](https://universe.roboflow.com/ufddfdd/ur-fall-detection-dataset)
+    -   Verifique a licença específica no site do dataset para detalhes sobre o uso.*
+
+2.  **GMDCSA24: A Dataset for Human Fall Detection in Videos**
+    -   **Utilizado para:** Teste e validação adicional do modelo treinado.
+    -   **Link:** [[Link para o dataset GMDCSA24 - adicione o link aqui se tiver](https://github.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos)]
+    -   **Licença:** MIT License. Conforme os termos, o aviso de copyright para este dataset deve ser incluído. *Copyright (c) 2024 Ekram Alam.*
+
 ## ✨ Funcionalidades
 
 -   **Detecção em Tempo Real:** Análise de streams de vídeo para identificação imediata de quedas.
@@ -75,6 +89,13 @@ O projeto é dividido em duas fases: Treinamento e Implantação.
 O modelo alcançou uma performance excelente durante a validação, com um **mAP50 de aproximadamente 97.5%**.
 
 ![Gráficos de Treinamento](/results/results.png)
+
+
+## 📄 Licença
+
+O código-fonte **deste projeto** está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
+
+É importante notar que os datasets utilizados neste projeto possuem suas próprias licenças, que devem ser respeitadas. A utilização do dataset GMDCSA24, em particular, requer a inclusão de seu aviso de copyright original, conforme estipulado pela sua licença MIT.
 
 ---
 *Criado por Luiz Felipe*
