@@ -18,12 +18,11 @@ Este modelo foi treinado e validado utilizando os seguintes datasets públicos. 
 1.  **UR Fall Detection Dataset (URFD)**
     -   **Utilizado para:** Treinamento principal do modelo.
     -   **Link:** [https://universe.roboflow.com/ufddfdd/ur-fall-detection-dataset](https://universe.roboflow.com/ufddfdd/ur-fall-detection-dataset)
-    -   Verifique a licença específica no site do dataset para detalhes sobre o uso.*
 
 2.  **GMDCSA24: A Dataset for Human Fall Detection in Videos**
     -   **Utilizado para:** Teste e validação adicional do modelo treinado.
     -   **Link:** [[Link para o dataset GMDCSA24 - adicione o link aqui se tiver](https://github.com/ekramalam/GMDCSA24-A-Dataset-for-Human-Fall-Detection-in-Videos)]
-    -   **Licença:** MIT License. Conforme os termos, o aviso de copyright para este dataset deve ser incluído. *Copyright (c) 2024 Ekram Alam.*
+    -   **Licença:** MIT License. *Copyright (c) 2024 Ekram Alam.*
 
 ## ✨ Funcionalidades
 
