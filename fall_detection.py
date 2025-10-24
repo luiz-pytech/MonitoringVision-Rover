@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 class FallDetector:
-    def __init__(self, model_path="best_integer_quant.tflite", camera_source=0):
+    def __init__(self, model_path="models_v2/best_integer_quant.tflite", camera_source=0):
         """
         Inicializa o detector de quedas
         Args:
@@ -24,13 +24,13 @@ class FallDetector:
         """
         # Configurações do modelo
         self.MODEL_PATH = model_path
-        self.INPUT_WIDTH = 640
-        self.INPUT_HEIGHT = 640
+        self.INPUT_WIDTH = 416
+        self.INPUT_HEIGHT = 416
         self.CONFIDENCE_THRESHOLD = 0.4
         self.IOU_THRESHOLD = 0.45
         
         self.CLASS_NAMES = {
-            0: "fallen",  # Pessoa caída
+            0: "fall",  # Pessoa caída
             1: "person"         # Pessoa em pé
         }
         
@@ -166,7 +166,7 @@ class FallDetector:
         timestamp = time.strftime("%Y%m%d_%H%M%S")
         
         # Salvar imagem da queda
-        filename = f"queda_detectada_{timestamp}.jpg"
+        filename = f"alert_fall_detection_images/queda_detectada_{timestamp}.jpg"
         cv2.imwrite(filename, frame)
         logger.warning(f"🚨 ALERTA: Queda confirmada! Imagem salva: {filename}")
         
@@ -322,7 +322,7 @@ class FallDetector:
 def main():
     """Função principal"""
     # Configurações - AJUSTE AQUI CONFORME NECESSÁRIO
-    MODEL_PATH = "best_integer_quant.tflite"  # Caminho do seu modelo
+    MODEL_PATH = "models_v2/best_integer_quant.tflite"  # Caminho do seu modelo
     
     # Para câmera USB local use 0, para câmera IP use a URL RTSP
     # CAMERA_SOURCE = 0  # Webcam USB
