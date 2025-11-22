@@ -25,8 +25,8 @@ class FallDetector:
         """
         # Configurações do modelo
         self.MODEL_PATH = model_path
-        self.INPUT_WIDTH = 640
-        self.INPUT_HEIGHT = 640
+        self.INPUT_WIDTH = 320
+        self.INPUT_HEIGHT = 320
         self.CONFIDENCE_THRESHOLD = 0.4
         self.IOU_THRESHOLD = 0.45
 
@@ -292,7 +292,7 @@ class FallDetector:
         cv2.resizeWindow(window_name, 800, 600)
 
         # Variáveis para skip de frames
-        frame_skip = 2  # Processar 1 a cada 2 frames
+        frame_skip = 5  # Processar 1 a cada 2 frames
         frame_count = 0
         last_result = None
 
