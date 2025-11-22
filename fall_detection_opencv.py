@@ -228,29 +228,42 @@ class FallDetector:
 
     def inference_thread(self):
         """Thread separada para inferência"""
+        logger.info("🔄 Thread de inferência iniciada")
+        frame_count = 0
         while self.running:
             if not self.frame_queue.empty():
+                frame_count += 1
+                logger.info(f"📸 Processando frame #{frame_count}")
                 frame = self.frame_queue.get()
 
                 # Preprocessar imagem
                 blob = self.preprocess_image(frame)
+                logger.info(f"✅ Blob criado - Shape: {blob.shape}")
 
                 # Fazer inferência
                 start_time = time.time()
                 self.net.setInput(blob)
+                logger.info("⚙️ Executando inferência...")
                 output_data = self.net.forward()
                 inference_time = time.time() - start_time
 
                 # Calcular FPS
                 self.fps = 1.0 / inference_time if inference_time > 0 else 0
 
+                logger.info(
+                    f"⏱️ Tempo: {inference_time:.3f}s | FPS: {self.fps:.1f}")
+                logger.info(f"📊 Output shape: {output_data.shape}")
+
                 # Processar detecções
                 detections = self.process_yolo_output(output_data, frame.shape)
+                logger.info(f"🎯 Detecções encontradas: {len(detections)}")
 
                 # Colocar resultado na fila
                 if self.result_queue.full():
                     self.result_queue.get()
                 self.result_queue.put((frame, detections))
+            else:
+                time.sleep(0.001)  # Pequeno sleep para não travar CPU
 
     def run(self):
         """Loop principal do sistema"""
