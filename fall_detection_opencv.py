@@ -62,9 +62,8 @@ class FallDetector:
             self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
             self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
-            logger.info(f"✅ Modelo ONNX carregado: {self.MODEL_PATH}")
-            logger.info(
-                f"📐 Input size: {self.INPUT_WIDTH}x{self.INPUT_HEIGHT}")
+            # logger.info(f"✅ Modelo ONNX carregado: {self.MODEL_PATH}")
+            # logger.info(f"📐 Input size: {self.INPUT_WIDTH}x{self.INPUT_HEIGHT}")
 
         except Exception as e:
             logger.error(f"❌ Erro ao carregar modelo: {e}")
@@ -228,35 +227,34 @@ class FallDetector:
 
     def inference_thread(self):
         """Thread separada para inferência"""
-        logger.info("🔄 Thread de inferência iniciada")
-        frame_count = 0
+        # logger.info("🔄 Thread de inferência iniciada")
+        # frame_count = 0
         while self.running:
             if not self.frame_queue.empty():
-                frame_count += 1
-                logger.info(f"📸 Processando frame #{frame_count}")
+                # frame_count += 1
+                # logger.info(f"📸 Processando frame #{frame_count}")
                 frame = self.frame_queue.get()
 
                 # Preprocessar imagem
                 blob = self.preprocess_image(frame)
-                logger.info(f"✅ Blob criado - Shape: {blob.shape}")
+                # logger.info(f"✅ Blob criado - Shape: {blob.shape}")
 
                 # Fazer inferência
                 start_time = time.time()
                 self.net.setInput(blob)
-                logger.info("⚙️ Executando inferência...")
+                # logger.info("⚙️ Executando inferência...")
                 output_data = self.net.forward()
                 inference_time = time.time() - start_time
 
                 # Calcular FPS
                 self.fps = 1.0 / inference_time if inference_time > 0 else 0
 
-                logger.info(
-                    f"⏱️ Tempo: {inference_time:.3f}s | FPS: {self.fps:.1f}")
-                logger.info(f"📊 Output shape: {output_data.shape}")
+                # logger.info(f"⏱️ Tempo: {inference_time:.3f}s | FPS: {self.fps:.1f}")
+                # logger.info(f"📊 Output shape: {output_data.shape}")
 
                 # Processar detecções
                 detections = self.process_yolo_output(output_data, frame.shape)
-                logger.info(f"🎯 Detecções encontradas: {len(detections)}")
+                # logger.info(f"🎯 Detecções encontradas: {len(detections)}")
 
                 # Colocar resultado na fila
                 if self.result_queue.full():
@@ -292,7 +290,7 @@ class FallDetector:
         cv2.resizeWindow(window_name, 800, 600)
 
         # Variáveis para skip de frames
-        frame_skip = 5  # Processar 1 a cada 2 frames
+        frame_skip = 15  # Processar 1 a cada 2 frames
         frame_count = 0
         last_result = None
 
