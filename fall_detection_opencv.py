@@ -23,11 +23,11 @@ class FallDetector:
             model_path: Caminho para o modelo ONNX
             camera_source: 0 para webcam USB ou URL RTSP para câmera IP
         """
-        # Configurações do modelo OTIMIZADAS
+        # Configurações do modelo
         self.MODEL_PATH = model_path
-        self.INPUT_WIDTH = 320
-        self.INPUT_HEIGHT = 320
-        self.CONFIDENCE_THRESHOLD = 0.5  # Aumentado para reduzir processamento
+        self.INPUT_WIDTH = 640
+        self.INPUT_HEIGHT = 640
+        self.CONFIDENCE_THRESHOLD = 0.4
         self.IOU_THRESHOLD = 0.45
 
         self.CLASS_NAMES = {
@@ -38,10 +38,10 @@ class FallDetector:
         self.CAMERA_SOURCE = camera_source
 
         self.fall_counter = 0
-        self.FALL_CONFIRM_FRAMES = 5  # Reduzido de 10 para 5
+        self.FALL_CONFIRM_FRAMES = 10
 
-        self.frame_queue = queue.Queue(maxsize=1)  # Reduzido para economizar memória
-        self.result_queue = queue.Queue(maxsize=1)
+        self.frame_queue = queue.Queue(maxsize=2)
+        self.result_queue = queue.Queue(maxsize=2)
 
         self.running = False
         self.fps = 0
@@ -62,8 +62,9 @@ class FallDetector:
             self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
             self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
-            # logger.info(f"✅ Modelo ONNX carregado: {self.MODEL_PATH}")
-            # logger.info(f"📐 Input size: {self.INPUT_WIDTH}x{self.INPUT_HEIGHT}")
+            logger.info(f"✅ Modelo ONNX carregado: {self.MODEL_PATH}")
+            logger.info(
+                f"📐 Input size: {self.INPUT_WIDTH}x{self.INPUT_HEIGHT}")
 
         except Exception as e:
             logger.error(f"❌ Erro ao carregar modelo: {e}")
@@ -88,55 +89,42 @@ class FallDetector:
         """
         Processa a saída do YOLOv8 ONNX e retorna as detecções.
         Formato de saída: [1, num_classes + 4, num_boxes]
-        OTIMIZADO: Filtragem vetorizada antes do loop
         """
         # Transpor para [num_boxes, num_classes + 4]
         output_data = output_data[0].T
 
+        boxes = []
+        scores = []
+        class_ids = []
         h_orig, w_orig = original_shape[:2]
 
         # Fatores de escala
         x_factor = w_orig / self.INPUT_WIDTH
         y_factor = h_orig / self.INPUT_HEIGHT
 
-        # OTIMIZAÇÃO: Filtrar por confiança ANTES do loop (vetorizado)
-        class_probs = output_data[:, 4:]
-        max_confidences = np.max(class_probs, axis=1)
-        valid_mask = max_confidences > self.CONFIDENCE_THRESHOLD
-
-        # Se não há detecções válidas, retornar vazio rapidamente
-        if not np.any(valid_mask):
-            return []
-
-        # Processar apenas as detecções válidas
-        valid_data = output_data[valid_mask]
-        valid_probs = class_probs[valid_mask]
-
-        boxes = []
-        scores = []
-        class_ids = []
-
-        for row, probs in zip(valid_data, valid_probs):
+        for row in output_data:
             # Extrair probabilidades de classe
-            class_id = np.argmax(probs)
-            confidence = probs[class_id]
+            class_probs = row[4:]
+            class_id = np.argmax(class_probs)
+            confidence = class_probs[class_id]
 
-            # Coordenadas da caixa (formato YOLO: x_center, y_center, width, height)
-            x_center, y_center, w, h = row[:4]
+            if confidence > self.CONFIDENCE_THRESHOLD:
+                # Coordenadas da caixa (formato YOLO: x_center, y_center, width, height)
+                x_center, y_center, w, h = row[:4]
 
-            # Converter para coordenadas absolutas
-            x_center *= x_factor
-            y_center *= y_factor
-            w *= x_factor
-            h *= y_factor
+                # Converter para coordenadas absolutas
+                x_center *= x_factor
+                y_center *= y_factor
+                w *= x_factor
+                h *= y_factor
 
-            # Converter para formato [x1, y1, w, h]
-            x1 = int(x_center - w / 2)
-            y1 = int(y_center - h / 2)
+                # Converter para formato [x1, y1, w, h]
+                x1 = int(x_center - w / 2)
+                y1 = int(y_center - h / 2)
 
-            boxes.append([x1, y1, int(w), int(h)])
-            scores.append(float(confidence))
-            class_ids.append(int(class_id))
+                boxes.append([x1, y1, int(w), int(h)])
+                scores.append(float(confidence))
+                class_ids.append(int(class_id))
 
         # Aplicar Non-Maximum Suppression
         indices = cv2.dnn.NMSBoxes(
@@ -148,14 +136,7 @@ class FallDetector:
 
         detections = []
         if len(indices) > 0:
-            # indices pode ser np.ndarray, list de ints ou list de listas/tuplas como [[0], [1]]
-            if isinstance(indices, np.ndarray):
-                iter_idxs = indices.flatten()
-            else:
-                iter_idxs = [i[0] if isinstance(
-                    i, (list, tuple, np.ndarray)) else i for i in indices]
-
-            for i in iter_idxs:
+            for i in indices.flatten():
                 x, y, w, h = boxes[i]
                 detections.append({
                     'bbox': [x, y, x + w, y + h],  # [x1, y1, x2, y2]
@@ -194,9 +175,9 @@ class FallDetector:
         self.last_alert_time = current_time
         timestamp = time.strftime("%Y%m%d_%H%M%S")
 
-        # Salvar imagem com qualidade reduzida (mais rápido no Pi)
+        # Salvar imagem da queda
         filename = f"queda_detectada_{timestamp}.jpg"
-        cv2.imwrite(filename, frame, [cv2.IMWRITE_JPEG_QUALITY, 85])
+        cv2.imwrite(filename, frame)
         logger.warning(f"🚨 ALERTA: Queda confirmada! Imagem salva: {filename}")
 
         # TODO: Adicionar aqui integração com sistemas de notificação
@@ -246,37 +227,43 @@ class FallDetector:
         return frame
 
     def inference_thread(self):
-        """Thread separada para inferência OTIMIZADA"""
-        import gc
+        """Thread separada para inferência"""
+        logger.info("🔄 Thread de inferência iniciada")
+        frame_count = 0
         while self.running:
-            try:
-                # Timeout para evitar travamento
-                frame = self.frame_queue.get(timeout=0.1)
+            if not self.frame_queue.empty():
+                frame_count += 1
+                logger.info(f"📸 Processando frame #{frame_count}")
+                frame = self.frame_queue.get()
 
                 # Preprocessar imagem
                 blob = self.preprocess_image(frame)
+                logger.info(f"✅ Blob criado - Shape: {blob.shape}")
 
                 # Fazer inferência
                 start_time = time.time()
                 self.net.setInput(blob)
+                logger.info("⚙️ Executando inferência...")
                 output_data = self.net.forward()
                 inference_time = time.time() - start_time
 
                 # Calcular FPS
                 self.fps = 1.0 / inference_time if inference_time > 0 else 0
 
+                logger.info(
+                    f"⏱️ Tempo: {inference_time:.3f}s | FPS: {self.fps:.1f}")
+                logger.info(f"📊 Output shape: {output_data.shape}")
+
                 # Processar detecções
                 detections = self.process_yolo_output(output_data, frame.shape)
+                logger.info(f"🎯 Detecções encontradas: {len(detections)}")
 
-                # Colocar resultado na fila (descarta antigo se cheio)
-                if not self.result_queue.full():
-                    self.result_queue.put((frame, detections))
-
-                # Liberar memória explicitamente
-                del blob, output_data
-
-            except Exception:
-                continue  # Continuar mesmo com erros
+                # Colocar resultado na fila
+                if self.result_queue.full():
+                    self.result_queue.get()
+                self.result_queue.put((frame, detections))
+            else:
+                time.sleep(0.001)  # Pequeno sleep para não travar CPU
 
     def run(self):
         """Loop principal do sistema"""
@@ -286,10 +273,10 @@ class FallDetector:
             logger.error(f"❌ Erro: Não foi possível conectar à câmera")
             return
 
-        # Configurar câmera OTIMIZADO para Raspberry Pi 3B
+        # Configurar câmera para melhor performance
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        cap.set(cv2.CAP_PROP_FPS, 15)  # Reduzido de 30 para 15 FPS
+        cap.set(cv2.CAP_PROP_FPS, 30)
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
         logger.info("✅ Câmera conectada. Iniciando detecção...")
@@ -300,19 +287,14 @@ class FallDetector:
         inference = Thread(target=self.inference_thread, daemon=True)
         inference.start()
 
-        # OTIMIZAÇÃO: Desabilitar display para modo headless
-        HEADLESS_MODE = True  # Mude para False se quiser ver o display
-
-        if not HEADLESS_MODE:
-            window_name = "Detecção de Quedas - Raspberry Pi"
-            cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
-            cv2.resizeWindow(window_name, 640, 480)
+        window_name = "Detecção de Quedas - Raspberry Pi"
+        cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(window_name, 800, 600)
 
         # Variáveis para skip de frames
-        frame_skip = 3  # OTIMIZADO: Processar 1 a cada 3 frames (era 1)
+        frame_skip = 2  # Processar 1 a cada 2 frames
         frame_count = 0
         last_result = None
-        last_log_time = time.time()
 
         try:
             while True:
@@ -326,16 +308,16 @@ class FallDetector:
 
                 # Skip frames para melhorar performance
                 if frame_count % frame_skip == 0:
-                    if not self.frame_queue.full():
-                        self.frame_queue.put(frame)  # OTIMIZADO: Removido .copy()
+                    if self.frame_queue.full():
+                        self.frame_queue.get()
+                    self.frame_queue.put(frame.copy())
 
-                # Verificar novos resultados (não bloqueante)
-                try:
-                    last_result = self.result_queue.get_nowait()
-                except:
-                    pass
+                # Verificar novos resultados
+                if not self.result_queue.empty():
+                    last_result = self.result_queue.get()
 
-                # Processar resultado
+                # Processar e exibir resultado
+                display_frame = frame.copy()
                 if last_result is not None:
                     _, detections = last_result
 
@@ -343,36 +325,24 @@ class FallDetector:
                     fall_confirmed = self.check_fall_confirmation(detections)
                     if fall_confirmed:
                         self.send_alert(frame)
-                        self.fall_counter = 0  # Reset após alerta
 
-                    # Log periódico (a cada 5 segundos)
-                    current_time = time.time()
-                    if current_time - last_log_time > 5:
-                        logger.info(f"FPS: {self.fps:.1f} | Detecções: {len(detections)} | Fall: {self.fall_counter}/{self.FALL_CONFIRM_FRAMES}")
-                        last_log_time = current_time
+                    # Desenhar detecções
+                    display_frame = self.draw_detections(
+                        display_frame, detections, fall_confirmed)
 
-                    # OTIMIZADO: Desenhar apenas se não estiver em modo headless
-                    if not HEADLESS_MODE:
-                        display_frame = self.draw_detections(frame.copy(), detections, fall_confirmed)
-                        cv2.imshow("Detecção de Quedas - Raspberry Pi", display_frame)
+                # Exibir frame
+                cv2.imshow("Detecção de Quedas - Raspberry Pi", display_frame)
 
-                # Verificar tecla de saída (apenas se não for headless)
-                if not HEADLESS_MODE:
-                    if cv2.waitKey(1) & 0xFF == ord('q'):
-                        break
-
-                # Garbage collection periódico
-                if frame_count % 100 == 0:
-                    import gc
-                    gc.collect()
+                # Verificar tecla de saída
+                if cv2.waitKey(1) & 0xFF == ord('q'):
+                    break
 
         except KeyboardInterrupt:
             logger.info("🛑 Interrompido pelo usuário")
         finally:
             self.running = False
             cap.release()
-            if not HEADLESS_MODE:
-                cv2.destroyAllWindows()
+            cv2.destroyAllWindows()
             logger.info("✅ Sistema finalizado")
 
 
