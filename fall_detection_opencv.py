@@ -25,8 +25,8 @@ class FallDetector:
         """
         # Configurações do modelo
         self.MODEL_PATH = model_path
-        self.INPUT_WIDTH = 640
-        self.INPUT_HEIGHT = 640
+        self.INPUT_WIDTH = 320
+        self.INPUT_HEIGHT = 320
         self.CONFIDENCE_THRESHOLD = 0.4
         self.IOU_THRESHOLD = 0.45
 
