@@ -1,33 +1,32 @@
 """
 Sistema de Detecção de Quedas para Raspberry Pi
-Compatível com YOLOv8 exportado para TFLite
+Usando OpenCV DNN com modelo ONNX (YOLOv8)
+Otimizado para Raspberry Pi 3B
 """
 
 import cv2
 import numpy as np
-from tflite_runtime.interpreter import Interpreter
 import time
 from threading import Thread
 import queue
 import logging
-import os
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 
 class FallDetector:
-    def __init__(self, model_path, camera_source=0):
+    def __init__(self, model_path="best.onnx", camera_source=0):
         """
         Inicializa o detector de quedas
         Args:
-            model_path: Caminho para o modelo TFLite
+            model_path: Caminho para o modelo ONNX
             camera_source: 0 para webcam USB ou URL RTSP para câmera IP
         """
         # Configurações do modelo
         self.MODEL_PATH = model_path
-        self.INPUT_WIDTH = 416
-        self.INPUT_HEIGHT = 416
+        self.INPUT_WIDTH = 320
+        self.INPUT_HEIGHT = 320
         self.CONFIDENCE_THRESHOLD = 0.4
         self.IOU_THRESHOLD = 0.45
 
@@ -49,23 +48,23 @@ class FallDetector:
         self.last_alert_time = 0
         self.ALERT_COOLDOWN = 30
 
-        # Inicializar TFLite
+        # Inicializar OpenCV DNN
         self.setup_model()
 
     def setup_model(self):
-        """Carrega e configura o modelo TFLite"""
+        """Carrega e configura o modelo ONNX com OpenCV DNN"""
         try:
-            # CORREÇÃO: Usar Interpreter direto do tflite_runtime
-            self.interpreter = Interpreter(model_path=self.MODEL_PATH)
-            self.interpreter.allocate_tensors()
+            # Carregar modelo ONNX
+            self.net = cv2.dnn.readNetFromONNX(self.MODEL_PATH)
 
-            # Obter detalhes de entrada e saída
-            self.input_details = self.interpreter.get_input_details()
-            self.output_details = self.interpreter.get_output_details()
+            # Configurar backend e target para melhor performance no Raspberry Pi
+            # Usar CPU otimizada
+            self.net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
+            self.net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 
-            logger.info(f"✅ Modelo carregado: {self.MODEL_PATH}")
-            logger.info(f"Input shape: {self.input_details[0]['shape']}")
-            logger.info(f"Output shape: {self.output_details[0]['shape']}")
+            logger.info(f"✅ Modelo ONNX carregado: {self.MODEL_PATH}")
+            logger.info(
+                f"📐 Input size: {self.INPUT_WIDTH}x{self.INPUT_HEIGHT}")
 
         except Exception as e:
             logger.error(f"❌ Erro ao carregar modelo: {e}")
@@ -73,27 +72,25 @@ class FallDetector:
 
     def preprocess_image(self, image):
         """
-        Preprocessa a imagem para o formato esperado pelo modelo
+        Preprocessa a imagem para o formato esperado pelo YOLOv8
         """
-        # Redimensionar para o tamanho de entrada
-        resized = cv2.resize(image, (self.INPUT_WIDTH, self.INPUT_HEIGHT))
-
-        input_data = np.expand_dims(resized, axis=0)
-
-        # Verificar o tipo de dados esperado
-        input_dtype = self.input_details[0]['dtype']
-        if input_dtype == np.uint8:
-            input_data = input_data.astype(np.uint8)
-        elif input_dtype == np.float32:
-            input_data = (input_data / 255.0).astype(np.float32)
-
-        return input_data
+        # Criar blob (redimensiona, normaliza e reorganiza dimensões)
+        blob = cv2.dnn.blobFromImage(
+            image,
+            scalefactor=1/255.0,  # Normalizar para [0, 1]
+            size=(self.INPUT_WIDTH, self.INPUT_HEIGHT),
+            mean=(0, 0, 0),
+            swapRB=True,  # BGR para RGB
+            crop=False
+        )
+        return blob
 
     def process_yolo_output(self, output_data, original_shape):
         """
-        Processa a saída do YOLOv8 TFLite e retorna as detecções.
+        Processa a saída do YOLOv8 ONNX e retorna as detecções.
+        Formato de saída: [1, num_classes + 4, num_boxes]
         """
-        # Remove a dimensão do lote e transpõe a matriz
+        # Transpor para [num_boxes, num_classes + 4]
         output_data = output_data[0].T
 
         boxes = []
@@ -101,38 +98,48 @@ class FallDetector:
         class_ids = []
         h_orig, w_orig = original_shape[:2]
 
+        # Fatores de escala
+        x_factor = w_orig / self.INPUT_WIDTH
+        y_factor = h_orig / self.INPUT_HEIGHT
+
         for row in output_data:
-            # Extrair probabilidades de classe e encontrar a de maior valor
+            # Extrair probabilidades de classe
             class_probs = row[4:]
             class_id = np.argmax(class_probs)
             confidence = class_probs[class_id]
 
             if confidence > self.CONFIDENCE_THRESHOLD:
-                # Coordenadas da caixa
+                # Coordenadas da caixa (formato YOLO: x_center, y_center, width, height)
                 x_center, y_center, w, h = row[:4]
 
-                # Converter coordenadas normalizadas para pixels no tamanho da imagem original
-                x1 = int((x_center - w / 2) * w_orig)
-                y1 = int((y_center - h / 2) * h_orig)
-                x2 = int((x_center + w / 2) * w_orig)
-                y2 = int((y_center + h / 2) * h_orig)
+                # Converter para coordenadas absolutas
+                x_center *= x_factor
+                y_center *= y_factor
+                w *= x_factor
+                h *= y_factor
 
-                # NMS do OpenCV espera [x, y, w, h]
-                boxes.append([x1, y1, x2 - x1, y2 - y1])
+                # Converter para formato [x1, y1, w, h]
+                x1 = int(x_center - w / 2)
+                y1 = int(y_center - h / 2)
+
+                boxes.append([x1, y1, int(w), int(h)])
                 scores.append(float(confidence))
-                class_ids.append(class_id)
+                class_ids.append(int(class_id))
 
-        # Aplicar Non-Maximum Suppression (NMS)
+        # Aplicar Non-Maximum Suppression
         indices = cv2.dnn.NMSBoxes(
-            boxes, scores, self.CONFIDENCE_THRESHOLD, self.IOU_THRESHOLD)
+            boxes,
+            scores,
+            self.CONFIDENCE_THRESHOLD,
+            self.IOU_THRESHOLD
+        )
 
         detections = []
-        if indices is not None and len(indices) > 0:
+        if len(indices) > 0:
             for i in indices.flatten():
                 x, y, w, h = boxes[i]
                 detections.append({
-                    # Converter de volta para [x1, y1, x2, y2]
-                    'bbox': [x, y, x + w, y + h],
+                    'bbox': [x, y, x + w, y + h],  # [x1, y1, x2, y2]
                     'confidence': scores[i],
                     'class_id': class_ids[i],
                     'class_name': self.CLASS_NAMES.get(class_ids[i], f"class_{class_ids[i]}")
@@ -145,7 +152,7 @@ class FallDetector:
         Verifica se uma queda foi confirmada baseado em múltiplos frames
         """
         fall_detected = any(
-            d['class_id'] == 0 for d in detections)  # 0 = fallen_person
+            d['class_id'] == 0 for d in detections)  # 0 = fallen
 
         if fall_detected:
             self.fall_counter += 1
@@ -169,9 +176,16 @@ class FallDetector:
         timestamp = time.strftime("%Y%m%d_%H%M%S")
 
         # Salvar imagem da queda
-        filename = f"alert_fall_detection_images/queda_detectada_{timestamp}.jpg"
+        filename = f"queda_detectada_{timestamp}.jpg"
         cv2.imwrite(filename, frame)
         logger.warning(f"🚨 ALERTA: Queda confirmada! Imagem salva: {filename}")
+
+        # TODO: Adicionar aqui integração com sistemas de notificação
+        # - Enviar SMS via Twilio
+        # - Enviar notificação push
+        # - Fazer POST para API
+        # - Enviar email
+        # - Acionar alarme sonoro no Raspberry Pi (GPIO)
 
     def draw_detections(self, frame, detections, fall_confirmed):
         """Desenha as detecções no frame"""
@@ -181,7 +195,7 @@ class FallDetector:
             class_name = det['class_name']
 
             # Escolher cor baseado na classe
-            if det['class_id'] == 0:  # fallen_person
+            if det['class_id'] == 0:  # fallen
                 color = (0, 0, 255)  # Vermelho
                 label = f"QUEDA! {conf:.2f}"
             else:  # person
@@ -214,34 +228,42 @@ class FallDetector:
 
     def inference_thread(self):
         """Thread separada para inferência"""
+        logger.info("🔄 Thread de inferência iniciada")
+        frame_count = 0
         while self.running:
             if not self.frame_queue.empty():
+                frame_count += 1
+                logger.info(f"📸 Processando frame #{frame_count}")
                 frame = self.frame_queue.get()
 
                 # Preprocessar imagem
-                input_data = self.preprocess_image(frame)
+                blob = self.preprocess_image(frame)
+                logger.info(f"✅ Blob criado - Shape: {blob.shape}")
 
                 # Fazer inferência
                 start_time = time.time()
-                self.interpreter.set_tensor(
-                    self.input_details[0]['index'], input_data)
-                self.interpreter.invoke()
+                self.net.setInput(blob)
+                logger.info("⚙️ Executando inferência...")
+                output_data = self.net.forward()
                 inference_time = time.time() - start_time
 
                 # Calcular FPS
                 self.fps = 1.0 / inference_time if inference_time > 0 else 0
 
-                # Obter saída
-                output_data = self.interpreter.get_tensor(
-                    self.output_details[0]['index'])
+                logger.info(
+                    f"⏱️ Tempo: {inference_time:.3f}s | FPS: {self.fps:.1f}")
+                logger.info(f"📊 Output shape: {output_data.shape}")
 
                 # Processar detecções
                 detections = self.process_yolo_output(output_data, frame.shape)
+                logger.info(f"🎯 Detecções encontradas: {len(detections)}")
 
                 # Colocar resultado na fila
                 if self.result_queue.full():
                     self.result_queue.get()
                 self.result_queue.put((frame, detections))
+            else:
+                time.sleep(0.001)  # Pequeno sleep para não travar CPU
 
     def run(self):
         """Loop principal do sistema"""
@@ -258,14 +280,19 @@ class FallDetector:
         cap.set(cv2.CAP_PROP_BUFFERSIZE, 1)
 
         logger.info("✅ Câmera conectada. Iniciando detecção...")
+        logger.info("⌨️  Pressione 'q' para sair")
 
         # Iniciar thread de inferência
         self.running = True
         inference = Thread(target=self.inference_thread, daemon=True)
         inference.start()
 
+        window_name = "Detecção de Quedas - Raspberry Pi"
+        cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+        cv2.resizeWindow(window_name, 800, 600)
+
         # Variáveis para skip de frames
-        frame_skip = 2
+        frame_skip = 2  # Processar 1 a cada 2 frames
         frame_count = 0
         last_result = None
 
@@ -273,7 +300,7 @@ class FallDetector:
             while True:
                 ret, frame = cap.read()
                 if not ret:
-                    logger.warning("Frame perdido, tentando reconectar...")
+                    logger.warning("⚠️  Frame perdido, tentando reconectar...")
                     time.sleep(1)
                     continue
 
@@ -311,29 +338,27 @@ class FallDetector:
                     break
 
         except KeyboardInterrupt:
-            logger.info("Interrompido pelo usuário")
+            logger.info("🛑 Interrompido pelo usuário")
         finally:
             self.running = False
             cap.release()
             cv2.destroyAllWindows()
-            logger.info("Sistema finalizado")
+            logger.info("✅ Sistema finalizado")
 
 
 def main():
     """Função principal"""
-    # --- CONFIGURAÇÃO DO NOME DO MODELO ---
-    # Substitua 'best_int8.tflite' abaixo pelo nome EXATO que você viu na pasta models_v2
-    NOME_DO_ARQUIVO = "best_int8.tflite"
+    # Configurações - AJUSTE AQUI CONFORME NECESSÁRIO
+    MODEL_PATH = "best.onnx"  # Caminho do seu modelo ONNX
 
-    MODEL_PATH = os.path.join("models_v2", NOME_DO_ARQUIVO)
+    # Para câmera USB local use 0, para câmera IP use a URL RTSP
+    # CAMERA_SOURCE = 0  # Webcam USB
+    # CAMERA_SOURCE = "rtsp://usuario:senha@192.168.1.100:554/stream1"  # Câmera IP
     CAMERA_SOURCE = 0
 
-    print(f"Tentando carregar modelo em: {MODEL_PATH}")
-
-    if not os.path.exists(MODEL_PATH):
-        print(f"\n❌ ERRO: O arquivo {MODEL_PATH} não foi encontrado!")
-        print("Verifique o nome dentro da pasta models_v2 e edite a linha NOME_DO_ARQUIVO no final do script.\n")
-        return 1
+    logger.info("=" * 60)
+    logger.info("🚨 Sistema de Detecção de Quedas - Raspberry Pi")
+    logger.info("=" * 60)
 
     detector = FallDetector(
         model_path=MODEL_PATH,
@@ -343,7 +368,9 @@ def main():
     try:
         detector.run()
     except Exception as e:
-        logger.error(f"Erro fatal: {e}")
+        logger.error(f"❌ Erro fatal: {e}")
+        import traceback
+        traceback.print_exc()
         return 1
 
     return 0
