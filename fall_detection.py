@@ -26,8 +26,8 @@ class FallDetector:
         """
         # Configurações do modelo
         self.MODEL_PATH = model_path
-        self.INPUT_WIDTH = 640
-        self.INPUT_HEIGHT = 640
+        self.INPUT_WIDTH = 416
+        self.INPUT_HEIGHT = 416
         self.CONFIDENCE_THRESHOLD = 0.4
         self.IOU_THRESHOLD = 0.45
 
@@ -169,7 +169,7 @@ class FallDetector:
         timestamp = time.strftime("%Y%m%d_%H%M%S")
 
         # Salvar imagem da queda
-        filename = f"queda_detectada_{timestamp}.jpg"
+        filename = f"alert_fall_detection_images/queda_detectada_{timestamp}.jpg"
         cv2.imwrite(filename, frame)
         logger.warning(f"🚨 ALERTA: Queda confirmada! Imagem salva: {filename}")
 
