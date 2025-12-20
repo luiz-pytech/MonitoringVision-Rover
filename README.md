@@ -24,10 +24,10 @@ Sistema de controle web com servidor **Node.js** que atua como relay WebSocket, 
 
 ### Rover em Ação
 
-![Rover Montado - Vista Frontal](docs/rover_front.jpg)
+![Rover Montado - Vista Frontal](docs/rover-front.jpg)
 *Rover com ESP32 e driver L298N*
 
-![Rover Montado - Vista Superior](docs/rover_top.jpg)
+![Rover Montado - Vista Superior](docs/rover-top.jpg)
 *Vista superior mostrando os componentes*
 
 ### Sistema de Detecção de Quedas
