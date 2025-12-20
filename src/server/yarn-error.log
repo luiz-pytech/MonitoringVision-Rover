@@ -1,0 +1,31 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\arthu\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js init -y
+
+PATH: 
+  C:\Users\arthu\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\arthu\bin;C:\Program Files\Common Files\Oracle\Java\javapath;C:\Python310\Scripts;C:\Python310;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Java\jdk-11\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\Java\jdk-11\bin;D:\Programas\gradle\gradle-2.10\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\WINDOWS\System32\OpenSSH;D:\Programas\xampp\php;D:\Programas\Composer;C:\ProgramData\chocolatey\bin;C:\Program Files\dotnet;C:\ProgramData\ComposerSetup\bin;C:\Program Files\Git\cmd;C:\Program Files\Docker\Docker\resources\bin;D:\instantclient_12_2;C:\Program Files (x86)\sbt\bin;C:\Program Files\apache-ant-1.10.14\bin;C:\Users\arthu\play1;C:\Program Files\nodejs;C:\Python311\Scripts;C:\Python311;C:\Users\arthu\AppData\Local\Programs\Python\Python311\Scripts;C:\Users\arthu\AppData\Local\Programs\Python\Python311;C:\Ruby31-x64\bin;D:\Programas\Python\Python39\Scripts;D:\Programas\Python\Python39;C:\Users\arthu\AppData\Local\Microsoft\WindowsApps;D:\Programas\Microsoft VS Code\bin;D:\Programas\Java\jre6\bin;D:\android_sdks\platform-tools;C:\Users\arthu\AppData\Roaming\Composer\vendor\bin;C:\MinGW\bin;C:\Users\arthu\AppData\Roaming\npm;C:\Program Files\JetBrains\IntelliJ IDEA 2024.3.1\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2024.3.1\bin;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl;C:\Python310;C:\Program Files\NASM
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  20.15.1
+
+Platform: 
+  win32 x64
+
+Trace: 
+  SyntaxError: D:\robo-monitoramento\server\package.json: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at C:\Users\arthu\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\arthu\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\arthu\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
+
+npm manifest: 
+  
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

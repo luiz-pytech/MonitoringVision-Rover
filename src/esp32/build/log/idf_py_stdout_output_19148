@@ -1,0 +1,443 @@
+Command: C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe C:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM11 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Users\jacso\Documents\robo-monitoramento-2\esp32\build\robot_realtime.elf C:\Users\jacso\Documents\robo-monitoramento-2\esp32\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'C:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py' '-p' 'COM11'
+ets Jun �ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 26 2025 17:31:57[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v1.0[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (40) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (48) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (70) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=25ae0h (154336) map[0m
+I (140) esp_image: segment 1: paddr=00035b08 vaddr=3ffb0000 size=03f78h ( 16248) load
+[0;32mI (147) esp_image: segment 2: paddr=00039a88 vaddr=40080000 size=06590h ( 26000) load[0m
+[0;32mI (157) esp_image: segment 3: paddr=00040020 vaddr=400d0020 size=9e418h (648216) map[0m
+[0;32mI (379) esp_image: segment 4: paddr=000de440 vaddr=40086590 size=118d0h ( 71888) load[0m
+[0;32mI (407) esp_image: segment 5: paddr=000efd18 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (419) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (419) boot: Disabling RNG early entropy source...[0m
+[0;32mI (429) cpu_start: Multicore app[0m
+[0;32mI (438) cpu_start: Pro cpu start user code[0m
+[0;32mI (438) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (438) app_init: Application information:[0m
+[0;32mI (441) app_init: Project name:     robot_realtime[0m
+[0;32mI (446) app_init: App version:      e72a9b8-dirty[0m
+[0;32mI (452) app_init: Compile time:     Nov 26 2025 17:29:26[0m
+[0;32mI (458) app_init: ELF file SHA256:  a511ea594...[0m
+[0;32mI (463) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (468) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (472) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (477) efuse_init: Chip rev:         v1.0[0m
+[0;32mI (483) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (490) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (496) heap_init: At 3FFB8638 len 000279C8 (158 KiB): DRAM[0m
+[0;32mI (502) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (508) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (515) heap_init: At 40097E60 len 000081A0 (32 KiB): IRAM[0m
+[0;32mI (522) spi_flash: detected chip: generic[0m
+[0;32mI (525) spi_flash: flash io: dio[0m
+[0;33mW (529) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (544) main_task: Started on CPU0[0m
+[0;32mI (554) main_task: Calling app_main()[0m
+[0;32mI (574) robot_ws: Motor GPIOs initialized[0m
+[0;32mI (584) wifi:wifi driver task: 3ffc0608, prio:23, stack:6656, core=0[0m
+[0;32mI (594) wifi:wifi firmware version: 14da9b7[0m
+[0;32mI (594) wifi:wifi certification version: v7.0[0m
+[0;32mI (594) wifi:config NVS flash: enabled[0m
+[0;32mI (594) wifi:config nano formatting: disabled[0m
+[0;32mI (604) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (604) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (604) wifi:Init management short buffer num: 32[0m
+[0;32mI (614) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (614) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (624) wifi:Init static rx buffer num: 10[0m
+[0;32mI (624) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (634) wifi_init: rx ba win: 6[0m
+[0;32mI (634) wifi_init: accept mbox: 6[0m
+[0;32mI (634) wifi_init: tcpip mbox: 32[0m
+[0;32mI (644) wifi_init: udp mbox: 6[0m
+[0;32mI (644) wifi_init: tcp mbox: 6[0m
+[0;32mI (644) wifi_init: tcp tx win: 5760[0m
+[0;32mI (654) wifi_init: tcp rx win: 5760[0m
+[0;32mI (654) wifi_init: tcp mss: 1440[0m
+[0;32mI (664) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (664) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;33mW (674) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (674) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (764) wifi:mode : sta (0c:8b:95:76:40:7c)[0m
+[0;32mI (764) wifi:enable tsf[0m
+[0;32mI (774) robot_ws: wifi_init_sta finished.[0m
+[0;32mI (774) robot_ws: Connecting to WiFi...[0m
+[0;32mI (784) wifi:new:<5,0>, old:<1,0>, ap:<255,255>, sta:<5,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (784) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (794) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (804) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (814) wifi:connected with GVT-C0CC, aid = 3, channel 5, BW20, bssid = 5a:8c:23:08:c2:30[0m
+[0;32mI (814) wifi:security: WPA2-PSK, phy: bgn, rssi: -53[0m
+[0;32mI (824) wifi:pm start, type: 1[0m
+
+[0;32mI (824) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (844) wifi:<ba-add>idx:0 (ifx:0, 5a:8c:23:08:c2:30), tid:0, ssn:2, winSize:64[0m
+[0;32mI (894) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (4154) esp_netif_handlers: sta ip: 10.7.223.183, mask: 255.255.255.128, gw: 10.7.223.129[0m
+[0;32mI (4154) robot_ws: Got IP: 10.7.223.183[0m
+[0;33mW (4774) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (4774) robot_ws: Starting websocket client...[0m
+[0;32mI (4784) websocket_client: Started[0m
+[0;32mI (5634) robot_ws: Websocket connected[0m
+O�+
+B���J����}����� accept mbox: 6[0m
+[0;32mI (634) wifi_init: tcpip mbox: 32[0m
+[0;32mI (644) wifi_init: udp mbox: 6[0m
+[0;32mI (644) wifi_init: tcp mbox: 6[0m
+[0;32mI (644) wifi_init: tcp tx win: 5760[0m
+[0;32mI (654) wifi_init: tcp rx win: 5760[0m
+[0;32mI (654) wifi_init: tcp mss: 1440[0m
+[0;32mI (664) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (664) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;33mW (674) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (674) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (764) phy_init: Saving new calibration data due to checksum failure or outdated calibration data, mode(0)[0m
+[0;32mI (844) wifi:mode : sta (0c:8b:95:76:40:7c)[0m
+[0;32mI (844) wifi:enable tsf[0m
+[0;32mI (844) robot_ws: wifi_init_sta finished.[0m
+[0;32mI (844) robot_ws: Connecting to WiFi...[0m
+[0;32mI (854) wifi:new:<5,0>, old:<1,0>, ap:<255,255>, sta:<5,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (854) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (864) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (874) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (884) wifi:connected with GVT-C0CC, aid = 3, channel 5, BW20, bssid = 5a:8c:23:08:c2:30[0m
+[0;32mI (894) wifi:security: WPA2-PSK, phy: bgn, rssi: -51[0m
+[0;32mI (894) wifi:pm start, type: 1[0m
+
+[0;32mI (894) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (904) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (1934) esp_netif_handlers: sta ip: 10.7.223.183, mask: 255.255.255.128, gw: 10.7.223.129[0m
+[0;32mI (1934) robot_ws: Got IP: 10.7.223.183[0m
+[0;33mW (4844) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (4844) robot_ws: Starting websocket client...[0m
+[0;32mI (4854) wifi:<ba-add>idx:0 (ifx:0, 5a:8c:23:08:c2:30), tid:0, ssn:3, winSize:64[0m
+[0;32mI (4854) websocket_client: Started[0m
+[0;32mI (5354) robot_ws: Websocket connected[0m
+[0;32mI (7564) robot_ws: Received: FORWARD[0m
+[0;32mI (7564) robot_ws: Command: move_forward[0m
+[0;32mI (14834) robot_ws: Received: STOP[0m
+[0;32mI (14834) robot_ws: Command: stop_motion[0m
+[0;32mI (16064) robot_ws: Received: BACK[0m
+[0;32mI (16064) robot_ws: Command: move_backward[0m
+[0;32mI (18724) robot_ws: Received: STOP[0m
+[0;32mI (18724) robot_ws: Command: stop_motion[0m
+[0;32mI (19654) robot_ws: Received: RIGHT[0m
+[0;32mI (19654) robot_ws: Command: turn_right[0m
+[0;32mI (21084) robot_ws: Received: RIGHT[0m
+[0;32mI (21084) robot_ws: Command: turn_right[0m
+[0;32mI (24974) robot_ws: Received: BACK[0m
+[0;32mI (24974) robot_ws: Command: move_backward[0m
+[0;32mI (26714) robot_ws: Received: STOP[0m
+[0;32mI (26714) robot_ws: Command: stop_motion[0m
+[0;32mI (1884) esp_netif_handlers: sta ip: 10.7.223.183, mask: 255.255.255.128, gw: 10.7.223.129[0m
+[0;32mI (1884) robot_ws: Got IP: 10.7.223.183[0m
+[0;32mI (2754) wifi:<ba-add>idx:0 (ifx:0, 5a:8c:23:08:c2:30), tid:0, ssn:3, winSize:64[0m
+[0;33mW (4774) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (4774) robot_ws: Starting websocket client...[0m
+[0;32mI (4784) websocket_client: Started[0m
+[0;32mI (10094) robot_ws: Websocket connected[0m
+[0;32mI (15594) robot_ws: Received: FORWARD[0m
+[0;32mI (15594) robot_ws: Command: move_forward[0m
+[0;32mI (19544) robot_ws: Received: STOP[0m
+[0;32mI (19544) robot_ws: Command: stop_motion[0m
+[0;32mI (19554) robot_ws: Received: STOP[0m
+[0;32mI (19554) robot_ws: Command: stop_motion[0m
+[0;32mI (19554) robot_ws: Received: STOP[0m
+[0;32mI (19564) robot_ws: Command: stop_motion[0m
+[0;32mI (19564) robot_ws: Received: STOP[0m
+[0;32mI (19564) robot_ws: Command: stop_motion[0m
+[0;32mI (19574) robot_ws: Received: BACK[0m
+[0;32mI (19574) robot_ws: Command: move_backward[0m
+[0;32mI (20574) robot_ws: Received: STOP[0m
+[0;32mI (20574) robot_ws: Command: stop_motion[0m
+[0;32mI (23034) robot_ws: Received: RIGHT[0m
+[0;32mI (23034) robot_ws: Command: turn_right[0m
+[0;32mI (24274) robot_ws: Received: STOP[0m
+[0;32mI (24274) robot_ws: Command: stop_motion[0m
+[0;32mI (25924) robot_ws: Received: LEFT[0m
+[0;32mI (25924) robot_ws: Command: turn_left[0m
+[0;32mI (48024) robot_ws: Received: STOP[0m
+[0;32mI (48024) robot_ws: Command: stop_motion[0m
+[0;32mI (48034) robot_ws: Received: STOP[0m
+[0;32mI (48034) robot_ws: Command: stop_motion[0m
+[0;32mI (48034) robot_ws: Received: STOP[0m
+[0;32mI (48034) robot_ws: Command: stop_motion[0m
+[0;32mI (48044) robot_ws: Received: STOP[0m
+[0;32mI (48044) robot_ws: Command: stop_motion[0m
+[0;32mI (48054) robot_ws: Received: RIGHT[0m
+[0;32mI (48054) robot_ws: Command: turn_right[0m
+[0;32mI (48064) robot_ws: Received: RIGHT[0m
+[0;32mI (48064) robot_ws: Command: turn_right[0m
+[0;32mI (48074) robot_ws: Received: RIGHT[0m
+[0;32mI (48074) robot_ws: Command: turn_right[0m
+[0;32mI (48084) robot_ws: Received: RIGHT[0m
+[0;32mI (48084) robot_ws: Command: turn_right[0m
+[0;32mI (48084) robot_ws: Received: RIGHT[0m
+[0;32mI (48094) robot_ws: Command: turn_right[0m
+[0;32mI (48094) robot_ws: Received: RIGHT[0m
+[0;32mI (48094) robot_ws: Command: turn_right[0m
+[0;32mI (48104) robot_ws: Received: RIGHT[0m
+[0;32mI (48104) robot_ws: Command: turn_right[0m
+[0;32mI (48114) robot_ws: Received: RIGHT[0m
+[0;32mI (48114) robot_ws: Command: turn_right[0m
+[0;32mI (48124) robot_ws: Received: RIGHT[0m
+[0;32mI (48124) robot_ws: Command: turn_right[0m
+[0;32mI (48134) robot_ws: Received: RIGHT[0m
+[0;32mI (48134) robot_ws: Command: turn_right[0m
+[0;32mI (48144) robot_ws: Received: RIGHT[0m
+[0;32mI (48144) robot_ws: Command: turn_right[0m
+[0;32mI (48154) robot_ws: Received: RIGHT[0m
+[0;32mI (48154) robot_ws: Command: turn_right[0m
+[0;32mI (48154) robot_ws: Received: RIGHT[0m
+[0;32mI (48164) robot_ws: Command: turn_right[0m
+[0;32mI (48164) robot_ws: Received: RIGHT[0m
+[0;32mI (48164) robot_ws: Command: turn_right[0m
+[0;32mI (48174) robot_ws: Received: RIGHT[0m
+[0;32mI (48174) robot_ws: Command: turn_right[0m
+[0;32mI (48184) robot_ws: Received: STOP[0m
+[0;32mI (48184) robot_ws: Command: stop_motion[0m
+[0;32mI (48194) robot_ws: Received: STOP[0m
+[0;32mI (48194) robot_ws: Command: stop_motion[0m
+[0;32mI (48204) robot_ws: Received: STOP[0m
+[0;32mI (48204) robot_ws: Command: stop_motion[0m
+[0;32mI (48214) robot_ws: Received: RIGHT[0m
+[0;32mI (48214) robot_ws: Command: turn_right[0m
+[0;32mI (48214) robot_ws: Received: STOP[0m
+[0;32mI (48224) robot_ws: Command: stop_motion[0m
+[0;32mI (48584) robot_ws: Received: BACK[0m
+[0;32mI (48584) robot_ws: Command: move_backward[0m
+[0;32mI (49244) robot_ws: Received: STOP[0m
+[0;32mI (49244) robot_ws: Command: stop_motion[0m
+[0;32mI (50374) robot_ws: Received: FORWARD[0m
+[0;32mI (50374) robot_ws: Command: move_forward[0m
+[0;32mI (51714) robot_ws: Received: STOP[0m
+[0;32mI (51714) robot_ws: Command: stop_motion[0m
+[0;32mI (52624) robot_ws: Received: STOP[0m
+[0;32mI (52624) robot_ws: Command: stop_motion[0m
+[0;32mI (52624) robot_ws: Received: STOP[0m
+[0;32mI (52624) robot_ws: Command: stop_motion[0m
+[0;32mI (52634) robot_ws: Received: STOP[0m
+[0;32mI (52634) robot_ws: Command: stop_motion[0m
+[0;32mI (52934) robot_ws: Received: RIGHT[0m
+[0;32mI (52934) robot_ws: Command: turn_right[0m
+[0;32mI (54674) robot_ws: Received: STOP[0m
+[0;32mI (54674) robot_ws: Command: stop_motion[0m
+[0;32mI (56004) robot_ws: Received: FORWARD[0m
+[0;32mI (56004) robot_ws: Command: move_forward[0m
+[0;32mI (57234) robot_ws: Received: FORWARD[0m
+[0;32mI (57234) robot_ws: Command: move_forward[0m
+[0;32mI (57634) robot_ws: Received: STOP[0m
+[0;32mI (57634) robot_ws: Command: stop_motion[0m
+[0;32mI (59584) robot_ws: Received: STOP[0m
+[0;32mI (59584) robot_ws: Command: stop_motion[0m
+[0;32mI (59584) robot_ws: Received: BACK[0m
+[0;32mI (59584) robot_ws: Command: move_backward[0m
+[0;32mI (60404) robot_ws: Received: STOP[0m
+[0;32mI (60404) robot_ws: Command: stop_motion[0m
+[0;32mI (62554) robot_ws: Received: RIGHT[0m
+[0;32mI (62554) robot_ws: Command: turn_right[0m
+[0;32mI (63374) robot_ws: Received: STOP[0m
+[0;32mI (63374) robot_ws: Command: stop_motion[0m
+[0;32mI (64394) robot_ws: Received: FORWARD[0m
+[0;32mI (64404) robot_ws: Command: move_forward[0m
+[0;32mI (65124) robot_ws: Received: STOP[0m
+[0;32mI (65124) robot_ws: Command: stop_motion[0m
+[0;32mI (67334) robot_ws: Received: FORWARD[0m
+[0;32mI (67334) robot_ws: Command: move_forward[0m
+[0;32mI (67884) robot_ws: Received: STOP[0m
+[0;32mI (67884) robot_ws: Command: stop_motion[0m
+[0;32mI (69624) robot_ws: Received: FORWARD[0m
+[0;32mI (69624) robot_ws: Command: move_forward[0m
+[0;32mI (70234) robot_ws: Received: STOP[0m
+[0;32mI (70234) robot_ws: Command: stop_motion[0m
+[0;32mI (71054) robot_ws: Received: LEFT[0m
+[0;32mI (71054) robot_ws: Command: turn_left[0m
+[0;32mI (71674) robot_ws: Received: LEFT[0m
+[0;32mI (71674) robot_ws: Command: turn_left[0m
+[0;32mI (73004) robot_ws: Received: STOP[0m
+[0;32mI (73004) robot_ws: Command: stop_motion[0m
+[0;32mI (74234) robot_ws: Received: RIGHT[0m
+[0;32mI (74234) robot_ws: Command: turn_right[0m
+[0;32mI (76174) robot_ws: Received: STOP[0m
+[0;32mI (76174) robot_ws: Command: stop_motion[0m
+[0;32mI (77194) robot_ws: Received: BACK[0m
+[0;32mI (77194) robot_ws: Command: move_backward[0m
+[0;32mI (77814) robot_ws: Received: BACK[0m
+[0;32mI (77814) robot_ws: Command: move_backward[0m
+[0;32mI (78324) robot_ws: Received: STOP[0m
+[0;32mI (78324) robot_ws: Command: stop_motion[0m
+[0;32mI (81704) robot_ws: Received: RIGHT[0m
+[0;32mI (81704) robot_ws: Command: turn_right[0m
+[0;32mI (83034) robot_ws: Received: STOP[0m
+[0;32mI (83034) robot_ws: Command: stop_motion[0m
+[0;32mI (86514) robot_ws: Received: BACK[0m
+[0;32mI (86524) robot_ws: Command: move_backward[0m
+[0;32mI (88864) robot_ws: Received: STOP[0m
+[0;32mI (88864) robot_ws: Command: stop_motion[0m
+[0;32mI (88864) robot_ws: Received: STOP[0m
+[0;32mI (88864) robot_ws: Command: stop_motion[0m
+[0;32mI (89184) robot_ws: Received: STOP[0m
+[0;32mI (89184) robot_ws: Command: stop_motion[0m
+[0;32mI (90204) robot_ws: Received: RIGHT[0m
+[0;32mI (90204) robot_ws: Command: turn_right[0m
+[0;32mI (91224) robot_ws: Received: STOP[0m
+[0;32mI (91234) robot_ws: Command: stop_motion[0m
+[0;32mI (91844) robot_ws: Received: FORWARD[0m
+[0;32mI (91844) robot_ws: Command: move_forward[0m
+[0;32mI (92664) robot_ws: Received: STOP[0m
+[0;32mI (92664) robot_ws: Command: stop_motion[0m
+[0;32mI (93584) robot_ws: Received: RIGHT[0m
+[0;32mI (93584) robot_ws: Command: turn_right[0m
+[0;32mI (100754) robot_ws: Received: STOP[0m
+[0;32mI (100754) robot_ws: Command: stop_motion[0m
+[0;32mI (102084) robot_ws: Received: FORWARD[0m
+[0;32mI (102084) robot_ws: Command: move_forward[0m
+[0;32mI (105974) robot_ws: Received: STOP[0m
+[0;32mI (105974) robot_ws: Command: stop_motion[0m
+[0;32mI (107714) robot_ws: Received: BACK[0m
+[0;32mI (107714) robot_ws: Command: move_backward[0m
+[0;32mI (108334) robot_ws: Received: STOP[0m
+[0;32mI (108334) robot_ws: Command: stop_motion[0m
+[0;32mI (109254) robot_ws: Received: FORWARD[0m
+[0;32mI (109254) robot_ws: Command: move_forward[0m
+[0;32mI (110174) robot_ws: Received: STOP[0m
+[0;32mI (110174) robot_ws: Command: stop_motion[0m
+[0;32mI (129214) robot_ws: Received: LEFT[0m
+[0;32mI (129224) robot_ws: Command: turn_left[0m
+[0;32mI (130044) robot_ws: Received: STOP[0m
+[0;32mI (130044) robot_ws: Command: stop_motion[0m
+[0;32mI (131574) robot_ws: Received: RIGHT[0m
+[0;32mI (131574) robot_ws: Command: turn_right[0m
+[0;32mI (133414) robot_ws: Received: STOP[0m
+[0;32mI (133414) robot_ws: Command: stop_motion[0m
+[0;32mI (133834) robot_ws: Received: BACK[0m
+[0;32mI (133834) robot_ws: Command: move_backward[0m
+[0;32mI (134544) robot_ws: Received: STOP[0m
+[0;32mI (134544) robot_ws: Command: stop_motion[0m
+[0;32mI (135154) robot_ws: Received: FORWARD[0m
+[0;32mI (135154) robot_ws: Command: move_forward[0m
+[0;32mI (135574) robot_ws: Received: STOP[0m
+[0;32mI (135584) robot_ws: Command: stop_motion[0m
+[0;32mI (136184) robot_ws: Received: BACK[0m
+[0;32mI (136184) robot_ws: Command: move_backward[0m
+[0;32mI (136794) robot_ws: Received: STOP[0m
+[0;32mI (136794) robot_ws: Command: stop_motion[0m
+[0;32mI (137304) robot_ws: Received: LEFT[0m
+[0;32mI (137304) robot_ws: Command: turn_left[0m
+[0;32mI (137924) robot_ws: Received: LEFT[0m
+[0;32mI (137924) robot_ws: Command: turn_left[0m
+[0;32mI (138434) robot_ws: Received: STOP[0m
+[0;32mI (138444) robot_ws: Command: stop_motion[0m
+[0;32mI (139254) robot_ws: Received: FORWARD[0m
+[0;32mI (139254) robot_ws: Command: move_forward[0m
+[0;32mI (140084) robot_ws: Received: STOP[0m
+[0;32mI (140084) robot_ws: Command: stop_motion[0m
+[0;32mI (191424) robot_ws: Received: FORWARD[0m
+[0;32mI (191424) robot_ws: Command: move_forward[0m
+[0;32mI (192004) robot_ws: Received: STOP[0m
+[0;32mI (192004) robot_ws: Command: stop_motion[0m
+[0;32mI (194464) robot_ws: Received: LEFT[0m
+[0;32mI (194464) robot_ws: Command: turn_left[0m
+[0;32mI (195594) robot_ws: Received: STOP[0m
+[0;32mI (195594) robot_ws: Command: stop_motion[0m
+[0;32mI (196194) robot_ws: Received: LEFT[0m
+[0;32mI (196194) robot_ws: Command: turn_left[0m
+[0;32mI (196914) robot_ws: Received: STOP[0m
+[0;32mI (196914) robot_ws: Command: stop_motion[0m
+[0;32mI (197934) robot_ws: Received: RIGHT[0m
+[0;32mI (197934) robot_ws: Command: turn_right[0m
+[0;32mI (198454) robot_ws: Received: STOP[0m
+[0;32mI (198454) robot_ws: Command: stop_motion[0m
+[0;32mI (326764) robot_ws: Received: FORWARD[0m
+[0;32mI (326764) robot_ws: Command: move_forward[0m
+[0;32mI (327774) robot_ws: Received: STOP[0m
+[0;32mI (327784) robot_ws: Command: stop_motion[0m
+[0;32mI (329214) robot_ws: Received: BACK[0m
+[0;32mI (329214) robot_ws: Command: move_backward[0m
+[0;32mI (330074) robot_ws: Received: STOP[0m
+[0;32mI (330074) robot_ws: Command: stop_motion[0m
+[0;32mI (334824) robot_ws: Received: LEFT[0m
+[0;32mI (334824) robot_ws: Command: turn_left[0m
+[0;32mI (334824) robot_ws: Received: LEFT[0m
+[0;32mI (334834) robot_ws: Command: turn_left[0m
+[0;32mI (334854) robot_ws: Received: STOP[0m
+[0;32mI (334854) robot_ws: Command: stop_motion[0m
+[0;32mI (335664) robot_ws: Received: RIGHT[0m
+[0;32mI (335664) robot_ws: Command: turn_right[0m
+[0;32mI (336784) robot_ws: Received: STOP[0m
+[0;32mI (336794) robot_ws: Command: stop_motion[0m
+[0;32mI (338214) robot_ws: Received: BACK[0m
+[0;32mI (338224) robot_ws: Command: move_backward[0m
+[0;32mI (339454) robot_ws: Received: STOP[0m
+[0;32mI (339454) robot_ws: Command: stop_motion[0m
+[0;32mI (340474) robot_ws: Received: LEFT[0m
+[0;32mI (340474) robot_ws: Command: turn_left[0m
+[0;32mI (341614) robot_ws: Received: STOP[0m
+[0;32mI (341624) robot_ws: Command: stop_motion[0m
+[0;32mI (348464) robot_ws: Received: FORWARD[0m
+[0;32mI (348464) robot_ws: Command: move_forward[0m
+[0;32mI (349074) robot_ws: Received: FORWARD[0m
+[0;32mI (349074) robot_ws: Command: move_forward[0m
+[0;32mI (349904) robot_ws: Received: STOP[0m
+[0;32mI (349904) robot_ws: Command: stop_motion[0m
+[0;32mI (352854) robot_ws: Received: LEFT[0m
+[0;32mI (352854) robot_ws: Command: turn_left[0m
+[0;32mI (354624) robot_ws: Received: STOP[0m
+[0;32mI (354624) robot_ws: Command: stop_motion[0m
+[0;32mI (355634) robot_ws: Received: FORWARD[0m
+[0;32mI (355634) robot_ws: Command: move_forward[0m
+[0;32mI (357584) robot_ws: Received: STOP[0m
+[0;32mI (357584) robot_ws: Command: stop_motion[0m
+[0;32mI (361464) robot_ws: Received: FORWARD[0m
+[0;32mI (361474) robot_ws: Command: move_forward[0m
+[0;32mI (362184) robot_ws: Received: STOP[0m
+[0;32mI (362194) robot_ws: Command: stop_motion[0m
+[0;32mI (367304) robot_ws: Received: BACK[0m
+[0;32mI (367304) robot_ws: Command: move_backward[0m
+[0;32mI (368634) robot_ws: Received: STOP[0m
+[0;32mI (368634) robot_ws: Command: stop_motion[0m
+[0;32mI (373444) robot_ws: Received: LEFT[0m
+[0;32mI (373444) robot_ws: Command: turn_left[0m
+[0;32mI (374364) robot_ws: Received: LEFT[0m
+[0;32mI (374364) robot_ws: Command: turn_left[0m
+[0;32mI (375694) robot_ws: Received: FORWARD[0m
+[0;32mI (375694) robot_ws: Command: move_forward[0m
+[0;32mI (376724) robot_ws: Received: STOP[0m
+[0;32mI (376734) robot_ws: Command: stop_motion[0m
+[0;32mI (377434) robot_ws: Received: LEFT[0m
+[0;32mI (377444) robot_ws: Command: turn_left[0m
+[0;32mI (378774) robot_ws: Received: STOP[0m
+[0;32mI (378784) robot_ws: Command: stop_motion[0m
+[0;32mI (381944) robot_ws: Received: FORWARD[0m
+[0;32mI (381944) robot_ws: Command: move_forward[0m
+[0;32mI (383074) robot_ws: Received: STOP[0m
+[0;32mI (383074) robot_ws: Command: stop_motion[0m
+[0;32mI (441444) robot_ws: Received: BACK[0m
+[0;32mI (441444) robot_ws: Command: move_backward[0m
+[0;32mI (441444) robot_ws: Received: BACK[0m
+[0;32mI (441444) robot_ws: Command: move_backward[0m
+[0;32mI (441454) robot_ws: Received: STOP[0m
+[0;32mI (441454) robot_ws: Command: stop_motion[0m
+[0;32mI (441464) robot_

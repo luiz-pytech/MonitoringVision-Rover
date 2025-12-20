@@ -1,0 +1,5 @@
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe -DESP_PLATFORM=1 -DCCACHE_ENABLE=1 C:\Users\jacso\Documents\robo-monitoramento-2\esp32
+C:\Users\jacso\AppData\Local\Temp\kconfgen_tmpzycf_4sz:5: warning: '"Not determined"' is not a valid value for the bool symbol SOC_BROWNOUT_RESET_SUPPORTED (defined at C:/Espressif/frameworks/esp-idf-v5.5.1\./components/soc/esp32/include/soc/Kconfig.soc_caps.in:270). Assignment ignored.
+warning: the value 'y' is invalid for SOC_MPI_OPERATIONS_NUM (defined at C:/Espressif/frameworks/esp-idf-v5.5.1\./components/soc/esp32/include/soc/Kconfig.soc_caps.in:830), which has type int -- assignment ignored
+warning: the value 'y' is invalid for SOC_EFUSE_SECURE_BOOT_KEY_DIGESTS (defined at C:/Espressif/frameworks/esp-idf-v5.5.1\./components/soc/esp32/include/soc/Kconfig.soc_caps.in:854), which has type int -- assignment ignored
+warning: user value 68 on the int symbol LWIP_DHCP_OPTIONS_LEN (defined at C:/Espressif/frameworks/esp-idf-v5.5.1/components/lwip/Kconfig:364) ignored due to being outside the active range ([69, 255]) -- falling back on defaults

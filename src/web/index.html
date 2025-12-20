@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Robot Controller</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body {
+        font-family: sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      button {
+        font-size: 20px;
+        padding: 12px 16px;
+        margin: 8px;
+      }
+      input {
+        padding: 8px;
+        font-size: 16px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Robot controller</h2>
+    <label>Robot ID: <input id="device" value="robot1" /></label><br /><br />
+    <button onclick="send('FORWARD')">⬆️ FORWARD</button><br />
+    <button onclick="send('LEFT')">⬅️ LEFT</button>
+    <button onclick="send('STOP')">🛑 STOP</button>
+    <button onclick="send('RIGHT')">➡️ RIGHT</button><br />
+    <button onclick="send('BACK')">⬇️ BACK</button>
+
+    <pre
+      id="log"
+      style="
+        text-align: left;
+        margin-top: 20px;
+        height: 200px;
+        overflow: auto;
+        background: #f5f5f5;
+        padding: 8px;
+      "
+    ></pre>
+
+    <script>
+      const logEl = document.getElementById("log");
+      const deviceInput = document.getElementById("device");
+
+      // Use localhost and port where server is running
+      const WS_URL = "ws://localhost:8080";
+      const ws = new WebSocket(WS_URL);
+
+      ws.onopen = () => {
+        append("Connected to server " + WS_URL);
+      };
+      ws.onmessage = (ev) => append("<< " + ev.data);
+      ws.onclose = () => append("Disconnected");
+
+      function append(txt) {
+        logEl.textContent =
+          new Date().toLocaleTimeString() +
+          " " +
+          txt +
+          "\n" +
+          logEl.textContent;
+      }
+
+      function send(action) {
+        const deviceId = deviceInput.value.trim();
+        if (!deviceId) return alert("device id required");
+        const message = `cmd:${deviceId}:${action}`;
+        ws.send(message);
+        append(">> " + message);
+      }
+    </script>
+  </body>
+</html>

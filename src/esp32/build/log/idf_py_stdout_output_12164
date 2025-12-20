@@ -1,0 +1,396 @@
+Command: C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe C:\Espressif\frameworks\esp-idf-v5.5.1\tools/idf_monitor.py -p COM11 -b 115200 --toolchain-prefix xtensa-esp32-elf- --target esp32 --revision 0 C:\Users\jacso\Documents\robo-monitoramento-2\esp32\build\robot_realtime.elf C:\Users\jacso\Documents\robo-monitoramento-2\esp32\build\bootloader\bootloader.elf --force-color -m 'C:\Espressif\python_env\idf5.5_py3.11_env\Scripts\python.exe' 'C:\Espressif\frameworks\esp-idf-v5.5.1\tools\idf.py' '-p' 'COM11'
+ets Jun�ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:6380
+ho 0 tail 12 room 4
+load:0x40078000,len:15916
+load:0x40080400,len:3860
+entry 0x40080638
+[0;32mI (29) boot: ESP-IDF v5.5.1 2nd stage bootloader[0m
+[0;32mI (29) boot: compile time Nov 26 2025 17:31:57[0m
+[0;32mI (29) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v1.0[0m
+[0;32mI (33) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (37) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (40) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (44) boot: Enabling RNG early entropy source...[0m
+[0;32mI (48) boot: Partition Table:[0m
+[0;32mI (51) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (57) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (64) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (70) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (77) boot: End of partition table[0m
+[0;32mI (80) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=25ae0h (154336) map[0m
+[0;32mI (140) esp_image: segment 1: paddr=00035b08 vaddr=3ffb0000 size=03f78h ( 16248) load[0m
+[0;32mI (147) esp_image: segment 2: paddr=00039a88 vaddr=40080000 size=06590h ( 26000) load[0m
+[0;32mI (157) esp_image: segment 3: paddr=00040020 vaddr=400d0020 size=9e418h (648216) map[0m
+[0;32mI (379) esp_image: segment 4: paddr=000de440 vaddr=40086590 size=118d0h ( 71888) load[0m
+[0;32mI (407) esp_image: segment 5: paddr=000efd18 vaddr=50000000 size=00020h (    32) load[0m
+[0;32mI (419) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (419) boot: Disabling RNG early entropy source...[0m
+[0;32mI (429) cpu_start: Multicore app[0m
+[0;32mI (438) cpu_start: Pro cpu start user code[0m
+[0;32mI (438) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (438) app_init: Application information:[0m
+[0;32mI (441) app_init: Project name:     robot_realtime[0m
+[0;32mI (446) app_init: App version:      e72a9b8-dirty[0m
+[0;32mI (452) app_init: Compile time:     Nov 26 2025 17:29:26[0m
+[0;32mI (458) app_init: ELF file SHA256:  5d478f14b...[0m
+[0;32mI (463) app_init: ESP-IDF:          v5.5.1[0m
+[0;32mI (468) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (472) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (477) efuse_init: Chip rev:         v1.0[0m
+[0;32mI (482) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (490) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (495) heap_init: At 3FFB8638 len 000279C8 (158 KiB): DRAM[0m
+[0;32mI (502) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (508) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (515) heap_init: At 40097E60 len 000081A0 (32 KiB): IRAM[0m
+[0;32mI (522) spi_flash: detected chip: generic[0m
+[0;32mI (525) spi_flash: flash io: dio[0m
+[0;33mW (529) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (543) main_task: Started on CPU0[0m
+[0;32mI (553) main_task: Calling app_main()[0m
+[0;32mI (573) robot_ws: Motor GPIOs initialized[0m
+[0;32mI (583) wifi:wifi driver task: 3ffc0608, prio:23, stack:6656, core=0[0m
+[0;32mI (593) wifi:wifi firmware version: 14da9b7[0m
+[0;32mI (593) wifi:wifi certification version: v7.0[0m
+[0;32mI (593) wifi:config NVS flash: enabled[0m
+[0;32mI (593) wifi:config nano formatting: disabled[0m
+[0;32mI (603) wifi:Init data frame dynamic rx buffer num: 32[0m
+[0;32mI (603) wifi:Init static rx mgmt buffer num: 5[0m
+[0;32mI (603) wifi:Init management short buffer num: 32[0m
+[0;32mI (613) wifi:Init dynamic tx buffer num: 32[0m
+[0;32mI (613) wifi:Init static rx buffer size: 1600[0m
+[0;32mI (623) wifi:Init static rx buffer num: 10[0m
+[0;32mI (623) wifi:Init dynamic rx buffer num: 32[0m
+[0;32mI (633) wifi_init: rx ba win: 6[0m
+[0;32mI (633) wifi_init: accept mbox: 6[0m
+[0;32mI (633) wifi_init: tcpip mbox: 32[0m
+[0;32mI (643) wifi_init: udp mbox: 6[0m
+[0;32mI (643) wifi_init: tcp mbox: 6[0m
+[0;32mI (643) wifi_init: tcp tx win: 5760[0m
+[0;32mI (653) wifi_init: tcp rx win: 5760[0m
+[0;32mI (653) wifi_init: tcp mss: 1440[0m
+[0;32mI (663) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (663) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;33mW (673) wifi:Password length matches WPA2 standards, authmode threshold changes from OPEN to WPA2[0m
+[0;32mI (673) phy_init: phy_version 4861,b71b5ad,Aug  5 2025,11:16:06[0m
+[0;32mI (763) wifi:mode : sta (0c:8b:95:76:40:7c)[0m
+[0;32mI (773) wifi:enable tsf[0m
+[0;32mI (773) robot_ws: wifi_init_sta finished.[0m
+[0;32mI (773) robot_ws: Connecting to WiFi...[0m
+[0;32mI (783) wifi:new:<5,0>, old:<1,0>, ap:<255,255>, sta:<5,0>, prof:1, snd_ch_cfg:0x0[0m
+[0;32mI (783) wifi:state: init -> auth (0xb0)[0m
+[0;32mI (793) wifi:state: auth -> assoc (0x0)[0m
+[0;32mI (803) wifi:state: assoc -> run (0x10)[0m
+[0;32mI (823) wifi:connected with GVT-C0CC, aid = 3, channel 5, BW20, bssid = 5a:8c:23:08:c2:30[0m
+[0;32mI (823) wifi:security: WPA2-PSK, phy: bgn, rssi: -58[0m
+[0;32mI (823) wifi:pm start, type: 1[0m
+
+[0;32mI (823) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us[0m
+[0;32mI (903) wifi:AP's beacon interval = 102400 us, DTIM period = 1[0m
+[0;32mI (1333) wifi:<ba-add>idx:0 (ifx:0, 5a:8c:23:08:c2:30), tid:0, ssn:2, winSize:64[0m
+[0;32mI (3663) esp_netif_handlers: sta ip: 192.168.25.2, mask: 255.255.255.0, gw: 192.168.25.1[0m
+[0;32mI (3663) robot_ws: Got IP: 192.168.25.2[0m
+[0;33mW (4773) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (4773) robot_ws: Starting websocket client...[0m
+[0;32mI (4783) websocket_client: Started[0m
+[0;32mI (4793) wifi:<ba-add>idx:1 (ifx:0, 5a:8c:23:08:c2:30), tid:6, ssn:0, winSize:64[0m
+[0;31mE (14793) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (14793) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (14793) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (14793) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (14813) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (14823) robot_ws: Websocket disconnected[0m
+[0;31mE (29833) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (29833) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (29833) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (29833) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (29853) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (29863) robot_ws: Websocket disconnected[0m
+[0;31mE (44873) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (44873) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (44873) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (44873) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (44893) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (44903) robot_ws: Websocket disconnected[0m
+[0;31mE (59913) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (59913) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (59913) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (59913) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (59933) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (59943) robot_ws: Websocket disconnected[0m
+[0;31mE (74953) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (74953) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (74953) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (74953) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (74973) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (74983) robot_ws: Websocket disconnected[0m
+[0;31mE (89993) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (89993) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (89993) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (89993) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (90013) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (90023) robot_ws: Websocket disconnected[0m
+[0;31mE (105033) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (105033) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (105033) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (105033) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (105053) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (105063) robot_ws: Websocket disconnected[0m
+[0;31mE (120073) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (120073) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (120073) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (120073) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (120093) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (120103) robot_ws: Websocket disconnected[0m
+[0;31mE (135113) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (135113) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (135113) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (135113) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (135133) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (135143) robot_ws: Websocket disconnected[0m
+[0;31mE (150153) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (150153) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (150153) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (150153) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (150173) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (150183) robot_ws: Websocket disconnected[0m
+[0;31mE (165193) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (165193) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (165193) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (165193) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (165213) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (165223) robot_ws: Websocket disconnected[0m
+[0;31mE (180233) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (180233) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (180233) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (180233) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (180253) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (180263) robot_ws: Websocket disconnected[0m
+[0;31mE (195273) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (195273) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (195273) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (195273) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (195293) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (195303) robot_ws: Websocket disconnected[0m
+[0;31mE (210313) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (210313) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (210313) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (210313) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (210333) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (210343) robot_ws: Websocket disconnected[0m
+[0;31mE (225353) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (225353) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (225353) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (225363) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (225373) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (225383) robot_ws: Websocket disconnected[0m
+[0;31mE (240393) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (240393) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (240393) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (240393) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (240413) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (240423) robot_ws: Websocket disconnected[0m
+[0;31mE (255433) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (255433) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (255433) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (255433) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (255453) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (255463) robot_ws: Websocket disconnected[0m
+[0;31mE (270473) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (270473) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (270473) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (270473) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (270493) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (270503) robot_ws: Websocket disconnected[0m
+[0;31mE (285513) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (285513) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (285513) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (285513) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (285533) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (285543) robot_ws: Websocket disconnected[0m
+[0;31mE (300553) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (300553) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (300553) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (300553) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (300573) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (300583) robot_ws: Websocket disconnected[0m
+[0;31mE (315593) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (315593) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (315593) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (315593) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (315613) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (315623) robot_ws: Websocket disconnected[0m
+[0;31mE (330633) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (330633) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (330633) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (330633) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (330653) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (330663) robot_ws: Websocket disconnected[0m
+[0;31mE (345673) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (345673) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (345673) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (345683) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (345693) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (345703) robot_ws: Websocket disconnected[0m
+[0;31mE (360713) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (360713) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (360713) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (360713) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (360733) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (360743) robot_ws: Websocket disconnected[0m
+[0;31mE (375753) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (375753) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (375753) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (375753) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (375773) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (375783) robot_ws: Websocket disconnected[0m
+[0;31mE (390793) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (390793) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (390793) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (390793) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (390813) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (390823) robot_ws: Websocket disconnected[0m
+[0;31mE (405833) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (405833) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (405833) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (405833) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (405853) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (405863) robot_ws: Websocket disconnected[0m
+[0;31mE (420873) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (420873) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (420873) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (420873) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (420893) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (420903) robot_ws: Websocket disconnected[0m
+[0;31mE (435913) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (435913) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (435913) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (435913) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (435933) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (435943) robot_ws: Websocket disconnected[0m
+[0;31mE (450953) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (450953) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (450953) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (450953) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (450973) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (450983) robot_ws: Websocket disconnected[0m
+[0;31mE (465993) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (465993) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (465993) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (466003) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (466013) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (466023) robot_ws: Websocket disconnected[0m
+[0;31mE (481033) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (481033) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (481033) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (481033) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (481053) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (481063) robot_ws: Websocket disconnected[0m
+[0;31mE (496073) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (496073) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (496073) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (496073) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (496093) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (496103) robot_ws: Websocket disconnected[0m
+[0;31mE (511113) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (511113) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (511113) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (511113) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (511133) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (511143) robot_ws: Websocket disconnected[0m
+[0;31mE (526153) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (526153) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (526153) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (526153) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (526173) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (526183) robot_ws: Websocket disconnected[0m
+[0;31mE (541193) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (541193) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (541193) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (541193) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (541213) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (541223) robot_ws: Websocket disconnected[0m
+[0;31mE (556233) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (556233) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (556233) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (556233) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (556253) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (556263) robot_ws: Websocket disconnected[0m
+[0;31mE (571273) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (571273) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (571273) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (571273) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (571293) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (571303) robot_ws: Websocket disconnected[0m
+[0;31mE (586313) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (586313) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (586313) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (586313) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (586333) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (586343) robot_ws: Websocket disconnected[0m
+[0;31mE (601353) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (601353) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (601353) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (601353) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (601373) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (601383) robot_ws: Websocket disconnected[0m
+[0;31mE (616393) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (616393) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (616393) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (616393) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (616413) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (616423) robot_ws: Websocket disconnected[0m
+[0;31mE (631433) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (631433) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (631433) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (631433) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (631453) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (631463) robot_ws: Websocket disconnected[0m
+[0;31mE (646473) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (646473) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (646473) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (646473) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (646493) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (646503) robot_ws: Websocket disconnected[0m
+[0;31mE (661513) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (661513) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (661513) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (661513) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (661533) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (661543) robot_ws: Websocket disconnected[0m
+[0;31mE (676553) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (676553) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (676553) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (676553) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (676573) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (676583) robot_ws: Websocket disconnected[0m
+[0;31mE (691593) esp-tls: [sock=54] select() timeout[0m
+[0;31mE (691593) transport_base: Failed to open a new connection: 32774[0m
+[0;31mE (691593) transport_ws: Error connecting to host 10.7.223.231:8080[0m
+[0;31mE (691593) websocket_client: esp_transport_connect() failed with -1, transport_error=ESP_ERR_ESP_TLS_CONNECTION_TIMEOUT, tls_error_code=0, tls_flags=0, esp_ws_handshake_status_code=0, errno=119[0m
+[0;32mI (691613) websocket_client: Reconnect after 5000 ms[0m
+[0;32mI (691623) robot_ws: Websocket disconnected[0m
+����0 (ifx:0, 5a:8c:23:08:c2:30), tid:0, ssn:2, winSize:64
+[0;32mI (2934) esp_netif_handlers: sta ip: 10.7.223.183, mask: 255.255.255.128, gw: 10.7.223.129[0m
+[0;32mI (2934) robot_ws: Got IP: 10.7.223.183[0m
+[0;33mW (4784) websocket_client: `network_timeout_ms` is not set, or it is less than or equal to zero, using default time out 10000 (milliseconds)[0m
+[0;32mI (4784) robot_ws: Starting websocket client...[0m
+[0;32mI (4794) websocket_client: Started[0m
+[0;32mI (5034) robot_ws: Websocket connected[0m
+[0;32mI (36734) robot_ws: Received: FORWARD[0m
+[0;32mI (36734) robot_ws: Command: move_forward[0m
+[0;32mI (39694) robot_ws: Received: STOP[0m
+[0;32mI (39694) robot_ws: Command: stop_motion[0m
+[0;32mI (85164) robot_ws: Received: LEFT[0m
+[0;32mI (85164) robot_ws: Command: turn_left[0m
+[0;32mI (87054) robot_ws: Received: RIGHT[0m
+[0;32mI (87054) robot_ws: Command: turn_right[0m
+[0;32mI (89254) robot_ws: Received: FORWARD[0m
+[0;32mI (89254)
